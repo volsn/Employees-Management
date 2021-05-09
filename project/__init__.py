@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 # App Setup
 
 app = Flask(__name__)
+version = '0.0.1'
 load_dotenv()
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 

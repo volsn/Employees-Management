@@ -1,5 +1,5 @@
 """
-TODO
+Package for creating and populating the database using SQLAlchemy ORM
 """
 from datetime import datetime
 from project import db
