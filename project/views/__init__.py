@@ -1,4 +1,5 @@
 from flask import Blueprint
+from project.models import Department, Employee
 
 core = Blueprint('core', __name__)
 
