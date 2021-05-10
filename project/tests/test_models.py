@@ -2,7 +2,7 @@ import os
 import unittest
 from project import app, db, basedir
 from project.models.populate import Department, Employee,\
-    populate_departments, populate_employees
+    populate_departments, populate_employees, drop_data, main
 
 
 class ModelsTest(unittest.TestCase):
@@ -30,3 +30,8 @@ class ModelsTest(unittest.TestCase):
 
     def test_employees_created(self):
         self.assertNotEqual(len(Employee.query.all()), 0)
+
+    def test_drop_data(self):
+        drop_data()
+        self.assertEqual(len(Department.query.all()), 0)
+        self.assertEqual(len(Employee.query.all()), 0)

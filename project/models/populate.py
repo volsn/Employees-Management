@@ -12,7 +12,7 @@ import random
 import logging
 import argparse
 
-logging.basicConfig(level=logging.DEBUG, filename='app.log')
+logging.basicConfig(level=logging.DEBUG, filename='app.log', format='%(name)s:%(levelname)s:%(message)s')
 
 from faker import Faker
 
@@ -32,8 +32,8 @@ def drop_data() -> None:
         Employee.query.delete()
         db.session.commit()
 
-    except:
-        logging.error('Couldn\'t delete Data from the Database.')
+    except Exception as err:
+        logging.error('Couldn\'t delete Data from the Database: {}'.format(str(err)))
         db.session.rollback()
 
 
