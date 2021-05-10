@@ -1,10 +1,12 @@
 # Python Files
 __pycache__/
+.pytest_cache/
 
 # Mac OS Files
 .DS_Store
 
 # SQL Files
+*.sqlite
 *.sqlite3
 
 # IDE Files
