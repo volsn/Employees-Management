@@ -25,13 +25,6 @@ class ModelsTest(unittest.TestCase):
             db.session.remove()
             db.drop_all()
 
-    def test_departments_created(self):
-        self.assertEqual(len(Department.query.all()), 14)
-
-    def test_employees_created(self):
-        self.assertNotEqual(len(Employee.query.all()), 0)
-
-    def test_drop_data(self):
-        drop_data()
-        self.assertEqual(len(Department.query.all()), 0)
-        self.assertEqual(len(Employee.query.all()), 0)
+    def test_all_departments(self):
+        response = self.client.get('/api/department')
+        self.assertEqual(response.status_code, 200)
