@@ -39,6 +39,17 @@ class Department(db.Model):
         """
         self.name = name
 
+    def json(self) -> dict:
+        """
+        Method that returns json representation of the object
+
+        Returns
+        -------
+            json : dict
+                department object data
+        """
+        return {'id': self.id, 'name': self.name}
+
     def __repr__(self) -> str:
         """
         Magic representation method of a class.
@@ -95,6 +106,19 @@ class Employee(db.Model):
         self.name = name
         self.birthdate = birthdate
         self.salary = salary
+
+    def json(self) -> dict:
+        """
+        Method that returns json representation of the object
+
+        Returns
+        -------
+            json : dict
+                employee object data
+        """
+        department = Department.query.get(self.department_id)
+        return {'id': self.id, 'name': self.name, 'department': department.name,
+                'birthdate': self.birthdate.strftime('%d/%m/%Y'), 'salary': self.salary}
 
     def __repr__(self):
         """
