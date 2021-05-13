@@ -1,5 +1,6 @@
-import os
-import re
+"""
+Package for creating endpoints for the rest api
+"""
 from datetime import datetime
 from typing import Tuple
 from flask import request
@@ -9,7 +10,20 @@ from project.models import Department, Employee
 
 
 class AllDepartmentsAPI(Resource):
+    """
+    Endpoint for restoring all departments data
+
+    Route
+    -----
+        /api/department/
+
+    Allowed Methods
+    ---------------
+        - GET - returns a list of all departments
+    """
+
     def get(self) -> Tuple[dict, int]:
+        """ returns a list of all departments """
         depts = {'departments': []}
 
         for dept in Department.query.all():
@@ -19,6 +33,21 @@ class AllDepartmentsAPI(Resource):
 
 
 class DepartmentAPI(Resource):
+    """
+    Endpoint for working with department data
+
+    Route
+    -----
+        /api/department/<string:name>
+
+    Allowed Methods
+    ---------------
+        - GET - returns data about department from db
+        - POST - creates new department
+        - PUT - changes data related to an existing
+                department or creates a new one
+        - DELETE - removes department from db
+    """
 
     parser = reqparse.RequestParser()
     parser.add_argument('name',
@@ -27,6 +56,7 @@ class DepartmentAPI(Resource):
                         help='New Name of the Department.')
 
     def get(self, name: str) -> Tuple[dict, int]:
+        """ returns data about department from db """
         dept = Department.query.filter_by(name=name).first()
 
         if dept:
@@ -35,6 +65,7 @@ class DepartmentAPI(Resource):
         return {'message': 'department with name \'{}\' does not exist'.format(name)}, 404
 
     def post(self, name: str) -> Tuple[dict, int]:
+        """ creates new department """
         if Department.query.filter_by(name=name).first():
             return {'message': 'department with name \'{}\' already exists'.format(name)}, 400
 
@@ -45,6 +76,7 @@ class DepartmentAPI(Resource):
         return dept.json(), 201
 
     def put(self, name: str) -> Tuple[dict, int]:
+        """ changes data related to an existing department or creates a new one """
         dept = Department.query.filter_by(name=name).first()
 
         if not dept:
@@ -52,13 +84,15 @@ class DepartmentAPI(Resource):
 
         data = DepartmentAPI.parser.parse_args()
         if Department.query.filter_by(name=data['name']).first():
-            return {'message': 'department with name \'{}\' already exists'.format(data['name'])}, 400
+            return {'message': 'department with name \'{}\''
+                               'already exists'.format(data['name'])}, 400
 
         dept.name = data['name']
         db.session.commit()
         return dept.json(), 200
 
     def delete(self, name: str) -> Tuple[dict, int]:
+        """ removes department from db """
         dept = Department.query.filter_by(name=name).first()
 
         if not dept:
@@ -70,8 +104,20 @@ class DepartmentAPI(Resource):
 
 
 class DepartmentEmployeesAPI(Resource):
+    """
+    Endpoint for getting list of employees of department
+
+    Route
+    -----
+        /api/department/<string:name>/employees
+
+    Allowed Methods
+    ---------------
+        - GET - returns a list of employees of department
+    """
 
     def get(self, name: str) -> Tuple[dict, int]:
+        """ returns a list of employees of department """
         dept = Department.query.filter_by(name=name).first()
 
         if not dept:
@@ -83,12 +129,26 @@ class DepartmentEmployeesAPI(Resource):
 
 
 class AllEmployeesAPI(Resource):
+    """
+    Endpoint for getting list of existing employees or creating a new one
+
+    Route
+    -----
+        /api/employee/
+
+    Allowed Methods
+    ---------------
+        - GET - returns a list of existing employees
+        - POST - create new user
+    """
 
     def get(self) -> Tuple[dict, int]:
+        """ returns a list of existing employees """
         employees = [employee.json() for employee in Employee.query.all()]
         return {'employees': employees}, 200
 
     def post(self) -> Tuple[dict, int]:
+        """ create new user """
         data = EmployeeAPI.parser.parse_args()
         message, status_code = EmployeeAPI.validate_args(data)
         if status_code != 200:
@@ -107,6 +167,19 @@ class AllEmployeesAPI(Resource):
 
 
 class EmployeeAPI(Resource):
+    """
+    Endpoint for working with employee data
+
+    Route
+    -----
+        /api/employee/<int:id>
+
+    Allowed Methods
+    ---------------
+        - GET - returns data about employee from db
+        - PUT - changes data related to an existing user
+        - DELETE - removes employee from db
+    """
 
     parser = reqparse.RequestParser()
     parser.add_argument('department',
@@ -125,11 +198,13 @@ class EmployeeAPI(Resource):
 
     @staticmethod
     def validate_args(data) -> Tuple[str, int]:
+        """ Static method for validating input data """
         if 'birthdate' in data.keys():
             try:
                 datetime.strptime(data['birthdate'], '%m.%d.%Y')
             except ValueError:
-                return "time data '{}' does not match format '%m.%d.%Y'".format(data['birthdate']), 400
+                return "time data '{}' does not match format" \
+                       "'%m.%d.%Y'".format(data['birthdate']), 400
 
         if 'department' in data.keys() and not Department.query.filter_by(name=data['department']).first():
             return 'department with name \'{}\' does not exist'.format(data['department']), 400
@@ -137,6 +212,7 @@ class EmployeeAPI(Resource):
         return '', 200
 
     def get(self, pk: int) -> Tuple[dict, int]:
+        """ returns data about employee from db """
         employee = Employee.query.filter_by(id=pk).first()
 
         if employee:
@@ -145,6 +221,7 @@ class EmployeeAPI(Resource):
         return {'message': 'employee with id {} not found'.format(pk)}, 404
 
     def put(self, pk: int) -> Tuple[dict, int]:
+        """ changes data related to an existing user """
         data = request.get_json()
 
         if Employee.query.filter_by(id=pk).first():
@@ -161,28 +238,11 @@ class EmployeeAPI(Resource):
             employee.update(data)
             db.session.commit()
             return employee.first().json(), 200
-        else:
-            return {'message': 'employee with id {} not found'.format(pk)}, 404
 
-        """
-        else:
-            data = EmployeeAPI.parser.parse_args()
-            message, status_code = EmployeeAPI.validate_args(data)
-            if status_code != 200:
-                return {'message': message}, status_code
-
-            department = Department.query.filter_by(name=data['department']).first()
-            employee = Employee(department_id=department.id,
-                                name=data['name'],
-                                birthdate=data['birthdate'],
-                                salary=data['salary'])
-            db.session.add(employee)
-            db.session.commit()
-            data['id'] = employee.id
-            return data, 201
-        """
+        return {'message': 'employee with id {} not found'.format(pk)}, 404
 
     def delete(self, pk: int) -> Tuple[dict, int]:
+        """ removes employee from db """
         employee = Employee.query.filter_by(id=pk).first()
         if not employee:
             return {'message': 'employee with id {} does not exist'.format(pk)}, 404
