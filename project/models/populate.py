@@ -83,7 +83,7 @@ def populate_employees(limit: int = 10) -> None:
             employee = Employee(
                 department_id=department.id,
                 name=faker.name(),
-                birthdate=faker.date_between(start_date='-50y', end_date='-18y'),
+                birthdate=faker.date_between(start_date='-50y', end_date='-18y').strftime('%m.%d.%Y'),
                 salary=random.randint(700, 2000)
             )
             db.session.add(employee)

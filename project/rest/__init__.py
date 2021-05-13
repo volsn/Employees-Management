@@ -162,6 +162,10 @@ class EmployeeAPI(Resource):
             db.session.commit()
             return employee.first().json(), 200
         else:
+            return {'message': 'employee with id {} not found'.format(pk)}, 404
+
+        """
+        else:
             data = EmployeeAPI.parser.parse_args()
             message, status_code = EmployeeAPI.validate_args(data)
             if status_code != 200:
@@ -176,12 +180,13 @@ class EmployeeAPI(Resource):
             db.session.commit()
             data['id'] = employee.id
             return data, 201
+        """
 
     def delete(self, pk: int) -> Tuple[dict, int]:
         employee = Employee.query.filter_by(id=pk).first()
         if not employee:
-            return {'message': 'employee with id {} does not exist'.format(pk)}, 400
+            return {'message': 'employee with id {} does not exist'.format(pk)}, 404
 
         db.session.delete(employee)
         db.session.commit()
-        return {'message': 'employee deleted'}, 200
+        return {'message': 'employee with id {} successfully removed'.format(pk)}, 200

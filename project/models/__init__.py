@@ -87,7 +87,7 @@ class Employee(db.Model):
     birthdate = db.Column(db.DateTime)
     salary = db.Column(db.Integer)
 
-    def __init__(self, department_id: int,  name: str, birthdate: datetime.date, salary: int) -> None:
+    def __init__(self, department_id: int,  name: str, birthdate: str, salary: int) -> None:
         """
         Constructor with all the necessary attributes of the object.
 
@@ -104,7 +104,7 @@ class Employee(db.Model):
         """
         self.department_id = department_id
         self.name = name
-        self.birthdate = birthdate
+        self.birthdate = datetime.strptime(birthdate, '%m.%d.%Y')
         self.salary = salary
 
     def json(self) -> dict:
@@ -118,7 +118,7 @@ class Employee(db.Model):
         """
         department = Department.query.get(self.department_id)
         return {'id': self.id, 'name': self.name, 'department': department.name,
-                'birthdate': self.birthdate.strftime('%d/%m/%Y'), 'salary': self.salary}
+                'birthdate': self.birthdate.strftime('%m.%d.%Y'), 'salary': self.salary}
 
     def __repr__(self):
         """
