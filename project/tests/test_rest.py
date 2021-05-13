@@ -173,7 +173,7 @@ class EmployeesTest(unittest.TestCase):
                                     content_type='application/json')
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 400)
-        self.assertDictEqual(data, {"message": "time data '15.15.2000'"
+        self.assertDictEqual(data, {"message": "time data '15.15.2000' "
                                                "does not match format '%m.%d.%Y'"})
 
     def test_post_invalid_department_employee(self):
@@ -186,7 +186,7 @@ class EmployeesTest(unittest.TestCase):
                                     content_type='application/json')
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 400)
-        self.assertDictEqual(data, {"message": "department with name"
+        self.assertDictEqual(data, {"message": "department with name "
                                                "'Does not Exist' does not exist"})
 
     def test_post_new_put_edit_employee(self):

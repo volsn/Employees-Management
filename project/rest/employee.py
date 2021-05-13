@@ -84,7 +84,7 @@ class EmployeeAPI(Resource):
             try:
                 datetime.strptime(data['birthdate'], '%m.%d.%Y')
             except ValueError:
-                return "time data '{}' does not match format" \
+                return "time data '{}' does not match format " \
                        "'%m.%d.%Y'".format(data['birthdate']), 400
 
         if 'department' in data.keys() and not Department.query.filter_by(name=data['department']).first():
