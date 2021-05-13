@@ -31,6 +31,12 @@ class DepartmentsTest(unittest.TestCase):
             db.session.remove()
             db.drop_all()
 
+    def test_get_all_departments(self):
+        response = self.client.get('/api/department/')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('departments' in data.keys())
+
     def test_get_department(self):
         response = self.client.get('/api/department/Marketing')
         data = json.loads(response.data)
@@ -82,6 +88,13 @@ class DepartmentsTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(data, {'message': 'department \'Marketing\' successfully removed'})
 
+    def test_get_department_employees(self):
+        response = self.client.get('/api/department/Marketing/employees')
+        data = json.loads(response.data)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(data['department']['name'], 'Marketing')
+        self.assertTrue('employees' in data.keys())
+
 
 class EmployeesTest(unittest.TestCase):
 
@@ -107,15 +120,11 @@ class EmployeesTest(unittest.TestCase):
             db.session.remove()
             db.drop_all()
 
-    def createEmployee(self) -> int:
-        response = self.client.post('/api/employee/',
-                                    data=json.dumps({'name': 'Steve Newton',
-                                                     'department': 'Marketing',
-                                                     'birthdate': '05.05.2000',
-                                                     'salary': 900}),
-                                    content_type='application/json')
+    def test_get_all_employees(self):
+        response = self.client.get('/api/employee/')
         data = json.loads(response.data)
-        return data['id']
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('employees' in data.keys())
 
     def test_post_get_employee(self):
         response = self.client.post('/api/employee/',
@@ -165,11 +174,13 @@ class EmployeesTest(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(data['name'], 'Steve Newton')
         response = self.client.put('/api/employee/{}'.format(data['id']),
-                                   data=json.dumps({'salary': 1200}),
+                                   data=json.dumps({'salary': 1200,
+                                                    'department': 'Research'}),
                                    content_type='application/json')
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['salary'], 1200)
+        self.assertEqual(data['department'], 'Research')
 
     def test_delete_employee(self):
         response = self.client.post('/api/employee/',
