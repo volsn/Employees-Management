@@ -49,10 +49,15 @@ class Department(db.Model):
             json : dict
                 department object data
         """
-        return {'id': self.id, 'name': self.name,
-                'num_employees': Employee.query.filter_by(department_id=self.id).count(),
-                'avg_salary': int(Employee.query.with_entities(func.avg(Employee.salary))
-                                  .filter_by(department_id=self.id)[0][0])}
+        output = {'id': self.id, 'name': self.name,
+                  'num_employees': db.session.query(Employee).filter_by(department_id=self.id).count()}
+
+        output['avg_salary'] = int(db.session.query(Employee)
+                                   .with_entities(func.avg(Employee.salary))
+                                   .filter_by(department_id=self.id)[0][0])\
+            if output['num_employees'] else None
+
+        return output
 
     def __repr__(self) -> str:
         """
