@@ -24,7 +24,7 @@ class AllDepartmentsAPI(Resource):
         """ returns a list of all departments """
         depts = {'departments': []}
 
-        for dept in Department.query.all():
+        for dept in Department.query.order_by(Department.id.desc()).all():
             depts['departments'].append(dept.json())
 
         return depts, 200
@@ -121,7 +121,7 @@ class DepartmentEmployeesAPI(Resource):
         if not dept:
             return {'message': 'department with name \'{}\' does not exist'.format(name)}, 404
 
-        employees = Employee.query.filter_by(department_id=dept.id)
+        employees = Employee.query.order_by(Employee.id.desc()).filter_by(department_id=dept.id)
         return {'department': dept.json(),
                 'employees': [empl.json() for empl in employees]}, 200
 

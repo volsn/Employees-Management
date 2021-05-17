@@ -25,7 +25,7 @@ class AllEmployeesAPI(Resource):
 
     def get(self) -> Tuple[dict, int]:
         """ returns a list of existing employees """
-        employees = [employee.json() for employee in Employee.query.all()]
+        employees = [employee.json() for employee in Employee.query.order_by(Employee.id.desc()).all()]
         return {'employees': employees}, 200
 
     def post(self) -> Tuple[dict, int]:
