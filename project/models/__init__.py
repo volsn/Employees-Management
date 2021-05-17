@@ -2,6 +2,7 @@
 Package for creating and populating the database using SQLAlchemy ORM
 """
 from datetime import datetime
+from sqlalchemy.sql import func
 from project import db
 
 
@@ -48,7 +49,10 @@ class Department(db.Model):
             json : dict
                 department object data
         """
-        return {'id': self.id, 'name': self.name}
+        return {'id': self.id, 'name': self.name,
+                'num_employees': Employee.query.filter_by(department_id=self.id).count(),
+                'avg_salary': int(Employee.query.with_entities(func.avg(Employee.salary))
+                                  .filter_by(department_id=self.id)[0][0])}
 
     def __repr__(self) -> str:
         """
