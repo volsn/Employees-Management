@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <main>
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <h1 class="fw-light">Welcome to the Department Page</h1>
+                    <p class="lead text-muted">Here you can find the list of all departments that are present in the db. All of them can be viewed, edited and deleted.</p>
+                    <p>
+                        <button href="#" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newModal" id="newModalButton" >Add Department</button>
+                        <a href="#" class="btn btn-secondary my-2">TODO</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="departments_list">
+
+                </div>
+
+                <div class="d-flex justify-content-center" style="margin-top: 50px;">
+                    <nav aria-label="...">
+                        <ul class="pagination pagination-lg" id="pagination_div">
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+{% endblock %}
+
+{% block templates %}
+    <template id="department_template">
+
+        <div class="col">
+            <div class="card shadow-sm">
+                <img src="{{ url_for('static', filename='img/1.jpg') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Department Name</h5>
+                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary"></h6>
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group">
+                            <a class="btn btn-sm btn-outline-secondary view-button">View</a>
+                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                        </div>
+                        <small class="text-muted department-num-employees"></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </template>
+
+    <template id="pagination_item_template">
+            <li class="page-item"><a class="page-link"></a></li>
+        </template>
+{% endblock %}
+
+{% block modals %}
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete Department</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove this department?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteConfirmButton">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Change Department Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)">
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">New Name</label>
+                            <input type="text" class="form-control" id="editName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editConfirmButton">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newModalLabel">Create New Department</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)">
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">New Name</label>
+                            <input type="text" class="form-control" id="newName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="newConfirmButton">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{{ url_for('static', filename='js/departments.js') }}"></script>
+    <script>
+        let current_page = 1;
+        let rows = 9;
+
+        let endpoints = {
+            departments_api: '{{ url_for('alldepartmentsapi') }}',
+            department_view: '/department/'
+        }
+
+        buildPage()
+    </script>
+{% endblock %}
