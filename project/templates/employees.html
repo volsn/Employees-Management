@@ -71,8 +71,8 @@
 {% endblock %}
 
 {% block templates %}
+    <!-- Employee Card Template -->
     <template id="employee_template">
-
         <div class="col">
             <div class="card shadow-sm">
                 <div class="card-body">
@@ -91,11 +91,16 @@
                 </div>
             </div>
         </div>
-
     </template>
 
+    <!-- Pagination Element -->
     <template id="pagination_item_template">
         <li class="page-item"><a class="page-link"></a></li>
+    </template>
+
+    <!-- Select Option Template -->
+    <template id="option_select_tempate">
+        <option value=""></option>
     </template>
 {% endblock %}
 
@@ -137,6 +142,16 @@
                             <label for="editBirthdate" class="form-label">New Birthdate</label>
                             <input type="date" class="form-control" id="editBirthdate" placeholder="mm.dd.yyyy">
                         </div>
+                         <div class="mb-3">
+                            <label for="editDepartment" class="form-label">Employee Department</label>
+                            <select class="form-select" id="editDepartment">
+
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSalary" class="form-label">Employee Salary</label>
+                            <input type="date" class="form-control" id="editSalary">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -149,46 +164,41 @@
 
     <!-- New Modal -->
     <div class="modal fade" id="newModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create new Employee</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="javascript:void(0)">
-                            <div class="mb-3">
-                                <label for="newName" class="form-label">Employee Name</label>
-                                <input type="date" class="form-control" id="newName">
-                            </div>
-                            <div class="mb-3">
-                                <label for="newBirthdate" class="form-label">Employee Birthdate</label>
-                                <input type="date" class="form-control" id="newBirthdate" placeholder="mm.dd.yyyy">
-                            </div>
-                            <div class="mb-3">
-                                <label for="newDepartment" class="form-label">Employee Department</label>
-                                <select class="form-select" id="newDepartment">
-                                    <option selected>Select Department</option>
-
-                                    <template id="option_select_tempate">
-                                        <option value=""></option>
-                                    </template>
-
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="newSalary" class="form-label">Employee Salary</label>
-                                <input type="date" class="form-control" id="newSalary">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary cancel-button" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="newConfirmButton">Create</button>
-                    </div>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create new Employee</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)">
+                        <div class="mb-3">
+                            <label for="newName" class="form-label">Employee Name</label>
+                            <input type="date" class="form-control" id="newName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newBirthdate" class="form-label">Employee Birthdate</label>
+                            <input type="date" class="form-control" id="newBirthdate" placeholder="mm.dd.yyyy">
+                        </div>
+                        <div class="mb-3">
+                            <label for="newDepartment" class="form-label">Employee Department</label>
+                            <select class="form-select" id="newDepartment">
+                                <option selected>Select Department</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newSalary" class="form-label">Employee Salary</label>
+                            <input type="date" class="form-control" id="newSalary">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary cancel-button" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="newConfirmButton">Create</button>
                 </div>
             </div>
         </div>
+    </div>
 
 {% endblock %}
 

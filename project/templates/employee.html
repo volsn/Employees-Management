@@ -16,7 +16,6 @@
             right: 0;
             left: 0;
         }
-
     </style>
 {% endblock %}
 
@@ -25,11 +24,14 @@
         <div class="album py-5 ">
             <div class="container">
                 <div class="jumbotron">
+                    <!-- Employee Data -->
                     <h3 id="employee_name"></h3>
                     <h5 id="employee_department"></h5>
                     <h5 id="employee_salary"></h5>
                     <h5 id="employee_birthdate"></h5>
                     <br>
+
+                    <!-- Control Buttons -->
                     <button class="btn btn-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
                     <button class="btn btn-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
                 </div>
@@ -58,24 +60,33 @@
         </div>
     </div>
 
-    {#
     <!-- Edit Modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel">Change Employee Data</h5>
+                    <h5 class="modal-title">Create new Employee</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form action="javascript:void(0)">
                         <div class="mb-3">
-                            <label for="editName" class="form-label">New Name</label>
-                            <input type="date" class="form-control" id="editName" value="{{ employee.name }}">
+                            <label for="editName" class="form-label">Employee Name</label>
+                            <input type="date" class="form-control" id="editName">
                         </div>
                         <div class="mb-3">
-                            <label for="editBirthdate" class="form-label">New Birthdate</label>
-                            <input type="date" class="form-control" id="editBirthdate" placeholder="mm.dd.yyyy" value="{{ employee.birthdate }}">
+                            <label for="editBirthdate" class="form-label">Employee Birthdate</label>
+                            <input type="date" class="form-control" id="editBirthdate" placeholder="mm.dd.yyyy">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDepartment" class="form-label">Employee Department</label>
+                            <select class="form-select" id="editDepartment">
+
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSalary" class="form-label">Employee Salary</label>
+                            <input type="date" class="form-control" id="editSalary">
                         </div>
                     </form>
                 </div>
@@ -86,49 +97,14 @@
             </div>
         </div>
     </div>
-    #}
 
-    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Create new Employee</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="javascript:void(0)">
-                            <div class="mb-3">
-                                <label for="editName" class="form-label">Employee Name</label>
-                                <input type="date" class="form-control" id="editName">
-                            </div>
-                            <div class="mb-3">
-                                <label for="editBirthdate" class="form-label">Employee Birthdate</label>
-                                <input type="date" class="form-control" id="editBirthdate" placeholder="mm.dd.yyyy">
-                            </div>
-                            <div class="mb-3">
-                                <label for="editDepartment" class="form-label">Employee Department</label>
-                                <select class="form-select" id="editDepartment">
+{% endblock %}
 
-                                    <template id="option_select_tempate">
-                                        <option value=""></option>
-                                    </template>
-
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="editSalary" class="form-label">Employee Salary</label>
-                                <input type="date" class="form-control" id="editSalary">
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary cancel-button" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editConfirmButton">Save Changes</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+{% block templates %}
+    <!-- Select Option Template -->
+    <template id="option_select_tempate">
+        <option value=""></option>
+    </template>
 {% endblock %}
 
 {% block custom_scripts %}

@@ -19,7 +19,10 @@ function sendRequest(method, url, body = null) {
     })
 }
 
+
 function displayEmployeeInfo(employee) {
+    /* Function that displays employee information on the webpage */
+
     document.getElementById("employee_name").innerText = employee.name
     document.getElementById("employee_birthdate").innerText = employee.birthdate
     document.getElementById("employee_department").innerText = employee.department + " Department"
@@ -31,28 +34,36 @@ function displayEmployeeInfo(employee) {
     document.getElementById("editSalary").value = employee.salary
 }
 
+
 function createDepartmentOptions(select, current_dept) {
+    /* Function that loads all existing departments from rest api
+    *  and displays them in the drop down menu */
     sendRequest('GET', endpoints['departments_api']).then(data => {
+
         let wrapper = document.getElementById(select)
-        console.log(current_dept)
+        wrapper.innerText = ""
+
         for (let dept of data['departments']) {
 
             const template = document.getElementById("option_select_tempate");
             let option = template.content.cloneNode(true);
 
-            if (dept.name === current_dept) {
-                option.selected = 'selected'
-            }
-
             option.querySelector("option").value = dept.name
             option.querySelector("option").innerText = dept.name
 
-            wrapper.appendChild(option)
+            if (dept.name === current_dept) {
+                console.log("inserted")
+                wrapper.insertBefore(option, wrapper.firstChild)
+            } else {
+                wrapper.appendChild(option)
+            }
         }
     })
 }
 
+
 function employeePageSetup() {
+    /* Function that setups the page */
 
     sendRequest('GET', endpoints['employee_api'] + self_id).then(employee => {
 
@@ -70,19 +81,20 @@ function employeePageSetup() {
 
             createDepartmentOptions("editDepartment", employee.department)
 
-            let body = {
-                name: edit_modal.querySelector("#editName").value,
-                birthdate: edit_modal.querySelector("#editBirthdate").value,
-                department: edit_modal.querySelector("#editDepartment").value,
-                salary: edit_modal.querySelector("#editSalary").value
-            }
-            console.log(body)
-
             edit_modal.querySelector("#editConfirmButton").addEventListener("click", () => {
+                let body = {
+                    name: edit_modal.querySelector("#editName").value,
+                    birthdate: edit_modal.querySelector("#editBirthdate").value,
+                    department: edit_modal.querySelector("#editDepartment").value,
+                    salary: edit_modal.querySelector("#editSalary").value
+                }
+
                 sendRequest("PUT", endpoints['employee_api'] + self_id, body)
-                    .then(employee => displayEmployeeInfo(employee))
+                    .then(data => {
+                        employee = data
+                        displayEmployeeInfo(employee)
+                    })
             })
         })
     })
 }
-
