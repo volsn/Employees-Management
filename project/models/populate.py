@@ -74,6 +74,7 @@ def populate_employees(limit: int = 10) -> None:
     """
     logging.info('Populating Employees Database')
 
+    random.seed(42)
     Faker.seed(42)
     faker = Faker()
 

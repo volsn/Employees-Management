@@ -16,11 +16,12 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Welcome to the {{ department }} Page</h1>
-                    <p class="lead text-muted">Here you can find the list of all employees working in the {{ department }} department. All of them can be viewed, edited and deleted.</p>
+                    <h1 class="fw-light">Welcome to the <span class="department-name">{{ department }}</span> Page</h1>
+                    <p class="lead text-muted">Here you can find the list of all employees working in the <span class="department-name">{{ department }}</span> department. All of them can be viewed, edited and deleted.</p>
                     <p>
                         <button class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newModal" id="newModalButton">Add Employee</button>
-                        <a href="#" class="btn btn-secondary my-2">TODO</a>
+                        <button class="btn btn-secondary my-2" data-bs-toggle="modal" data-bs-target="#editDeptModal" id="editDeptModalButton">Edit</button>
+                        <button class="btn btn-danger my-2" data-bs-toggle="modal" data-bs-target="#deleteDeptModal" id="deleteDeptModalButton">Delete</button>
                     </p>
                 </div>
             </div>
@@ -33,7 +34,7 @@
                     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ url_for('core.departments') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">{{ department }}</li>
+                            <li class="breadcrumb-item active" aria-current="page"><span class="department-name">{{ department }}</span></li>
                         </ol>
                     </nav>
 
@@ -201,7 +202,6 @@
                         <div class="mb-3">
                             <label for="newDepartment" class="form-label">Employee Department</label>
                             <select class="form-select" id="newDepartment">
-                                <option selected>Select Department</option>
                             </select>
                         </div>
                         <div class="mb-3">
@@ -218,6 +218,49 @@
         </div>
     </div>
 
+    <!-- Edit Department Modal -->
+    <div class="modal fade" id="editDeptModal" tabindex="-1" aria-labelledby="editDeptModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDeptModalLabel">Change Department Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="javascript:void(0)">
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">New Name</label>
+                            <input type="text" class="form-control" id="editDeptName">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editDeptConfirmButton">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Department Modal -->
+    <div class="modal fade" id="deleteDeptModal" tabindex="-1" aria-labelledby="deleteDeptModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteDeptModalLabel">Delete Department</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove this department?</p>
+                    <p style="font-size: 13px;"><i class="bi bi-info-circle-fill"></i> All department workers will be removed too</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteDeptConfirmButton">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block alerts %}
@@ -226,10 +269,11 @@
 {% endblock %}
 
 {% block custom_scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/employees.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/department.js') }}"></script>
     <script>
 
+        let department = '{{ department }}';
         let current_page = 1;
         let rows = 12;
 
@@ -237,11 +281,17 @@
             all_employees_api: '{{ url_for('departmentemployeesapi', name=department) }}',
             employee_api: '{{ url_for('allemployeesapi') }}',
             departments_api: '{{ url_for('alldepartmentsapi') }}',
-            employee_view: '/employee/'
+            employee_view: '/employee/',
+            index: '{{ url_for('core.departments') }}'
         }
 
         $('.alert-danger').hide()
         buildPage()
+        setupDepartment()
+
+        setTimeout(() => {
+            selectedDepartment('newDepartment', '{{ department }}')
+        }, 500)
 
     </script>
 {% endblock %}
