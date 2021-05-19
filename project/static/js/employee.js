@@ -1,3 +1,7 @@
+String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
 function sendRequest(method, url, body = null) {
     const request = {
         method: method,
@@ -14,7 +18,12 @@ function sendRequest(method, url, body = null) {
             return response.json()
         }
         return response.json().then(err => {
-			console.error(err)
+			let alert = $('.alert-danger')
+			alert.text(err['message'].capitalize())
+			alert.show()
+			alert.fadeTo(2000, 500).slideUp(500, function(){
+				alert.slideUp(500)
+			});
 		})
     })
 }

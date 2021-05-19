@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
+{% block custom_styles %}
+    <style>
+        .alert-danger
+        {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+        }
+    </style>
+{% endblock %}
+
 {% block main %}
     <main>
         <section class="py-5 text-center container">
@@ -209,6 +220,11 @@
 
 {% endblock %}
 
+{% block alerts %}
+    <div class="container alert alert-danger">
+    </div>
+{% endblock %}
+
 {% block custom_scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/employees.js') }}"></script>
@@ -224,6 +240,7 @@
             employee_view: '/employee/'
         }
 
+        $('.alert-danger').hide()
         buildPage()
 
     </script>

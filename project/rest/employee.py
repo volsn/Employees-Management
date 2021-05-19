@@ -80,6 +80,11 @@ class EmployeeAPI(Resource):
     @staticmethod
     def validate_args(data) -> Tuple[str, int]:
         """ Static method for validating input data """
+
+        if 'salary' in data.keys():
+            if not isinstance(data['salary'], int) and not data['salary'].isnumeric():
+                return 'salary has to be a number', 400
+
         if 'birthdate' in data.keys():
             try:
                 datetime.strptime(data['birthdate'], '%m.%d.%Y')
