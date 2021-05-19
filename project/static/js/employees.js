@@ -46,6 +46,17 @@ function createDepartmentOptions(select, current_dept) {
     })
 }
 
+function selectedDepartment(selector, selected) {
+	let wrapper = document.getElementById(selector)
+	for (let option of wrapper.children) {
+		if (option.value === selected) {
+			wrapper.removeChild(option)
+			option.selected = true
+			wrapper.insertBefore(option, wrapper.firstChild)
+		}
+	}
+}
+
 function DisplayList(items, wrapper, rows_per_page, page) {
 	wrapper.innerHTML = ""
 	page--
@@ -68,6 +79,10 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 		item_element.querySelector(".view-button").href = endpoints['employee_view'] + item.id
 		item_element.querySelector(".edit-button").addEventListener("click", () => {
 
+			selectedDepartment("editDepartment", item.department)
+
+			$("#editModal").modal("show")
+
 			const edit_modal = document.getElementById("editModal")
 			let edit_modal_without_listeners = edit_modal.cloneNode(true)
 			edit_modal.parentNode.replaceChild(edit_modal_without_listeners, edit_modal)
@@ -75,7 +90,6 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 			edit_modal.querySelector("#editName").value = item.name
 			edit_modal.querySelector("#editBirthdate").value = item.birthdate
 			edit_modal.querySelector("#editSalary").value = item.salary
-			createDepartmentOptions("editDepartment", item.department)
 
 			edit_modal.querySelector("#editConfirmButton").addEventListener("click", () => {
 
@@ -206,11 +220,12 @@ function buildPage() {
 		SetupFilter(list_items['employees'])
     })
 
+	createDepartmentOptions("editDepartment")
+	createDepartmentOptions("newDepartment")
+
 	const new_modal_button = document.getElementById("newModalButton")
 	new_modal_button.addEventListener("click", () => {
 		const new_modal = document.getElementById("newModal")
-
-		createDepartmentOptions("newDepartment")
 
 		new_modal.querySelector("#newConfirmButton").addEventListener("click", () => {
 
