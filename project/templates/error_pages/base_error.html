@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block custom_styles %}
+    <style>
+        .jumbotron {
+            margin-top: 50px;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            background-color: #e9ecef;
+            border-radius: .3rem;
+        }
+
+        footer
+        {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block main %}
+    <div class="container jumbotron">
+        <h1>
+            {% block error_message %}
+            
+            {% endblock %}
+        </h1>
+    </div>
+{% endblock %}

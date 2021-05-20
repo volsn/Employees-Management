@@ -42,5 +42,7 @@ api.add_resource(EmployeeAPI, '/api/employee/<int:pk>')
 # Blueprint Registration
 
 from project.views import core
+from project.views.handlers import error_pages
 
 app.register_blueprint(core)
+app.register_blueprint(error_pages)

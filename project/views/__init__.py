@@ -1,7 +1,7 @@
 """"
 Package for defining project views
 """
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, abort
 from project.models import Department, Employee
 
 core = Blueprint('core', __name__)
@@ -16,6 +16,8 @@ def departments():
 @core.route('/department/<string:name>')
 def department(name):
     """ Department page for changing department data and viewing list of workers """
+    if not Department.query.filter_by(name=name).first():
+        abort(404)
     return render_template('department.html',
                            department=name)
 
