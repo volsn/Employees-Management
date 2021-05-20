@@ -16,9 +16,16 @@
             {% block base_styles %}
                 <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}">
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+                <style>
+                    .alert
+                    {
+                        position: sticky;
+                        top: 20px;
+                        z-index: 1000;
+                    }
+                </style>
             {% endblock %}
             {% block custom_styles %}
-            
             {% endblock %}
 
         </head>
@@ -41,7 +48,12 @@
             </header>
         {% endblock %}
 
+
         {% block alerts %}
+            <div class="container alert alert-danger">
+            </div>
+            <div class="container alert alert-primary">
+            </div>
         {% endblock %}
 
         {% block main %}
@@ -69,6 +81,10 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
             <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.js') }}"></script>
             <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+            <script>
+                $('.alert-danger').hide()
+                $('.alert-primary').hide()
+            </script>
         {% endblock %}
         
         {% block custom_scripts %}

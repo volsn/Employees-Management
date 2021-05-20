@@ -60,6 +60,8 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 
 					DisplayList(items, wrapper, rows_per_page, page+1)
 					SetupPagination(items, pagination_element, rows)
+					console.info('Employee data updated')
+					showInfoMessage('Employee data updated')
 				})
 			})
 
@@ -76,6 +78,8 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 					items.splice(start+item.index, 1)
 					DisplayList(items, wrapper, rows_per_page, (paginatedItems.length !== 1) ? page+1 : page)
 					SetupPagination(items, pagination_element, rows)
+					console.info('Employee successfully removed')
+					showInfoMessage('Employee successfully removed')
 				})
 			})
 		})
@@ -160,6 +164,8 @@ function buildPage() {
 				new_modal.querySelector("#newBirthdate").value = null
 				new_modal.querySelector("#newDepartment").value = null
 				new_modal.querySelector("#newSalary").value = null
+				console.info('New employee created')
+				showInfoMessage('New employee created')
 			})
 		})
 	})

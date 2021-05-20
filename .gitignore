@@ -18,3 +18,6 @@ venv/
 
 # Logs
 *.log
+
+# Pylint usage
+.pylint

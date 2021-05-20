@@ -1,16 +1,5 @@
 {% extends 'base.html' %}
 
-{% block custom_styles %}
-    <style>
-        .alert-danger
-        {
-            position: sticky;
-            top: 20px;
-            z-index: 1000;
-        }
-    </style>
-{% endblock %}
-
 {% block main %}
 
     <main>
@@ -212,12 +201,6 @@
     </div>
 
 {% endblock %}
-
-{% block alerts %}
-    <div class="container alert alert-danger">
-    </div>
-{% endblock %}
-
 {% block custom_scripts %}
     <script src="{{ url_for('static', filename='js/employees.js') }}"></script>
     <script>
@@ -232,7 +215,6 @@
             employee_view: '/employee/'
         }
 
-        $('.alert-danger').hide()
         buildPage()
 
     </script>

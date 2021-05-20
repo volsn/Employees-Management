@@ -21,7 +21,9 @@ function employeePageSetup() {
 
         document.getElementById("deleteConfirmButton").addEventListener("click", () => {
             sendRequest("DELETE", endpoints['employee_api'] + self_id).then(() => {
-                window.location.replace(endpoints['index']);
+                window.location.replace(endpoints['index'])
+                console.info('Employee removed')
+                showInfoMessage('Employee removed')
             })
         })
 
@@ -43,6 +45,8 @@ function employeePageSetup() {
                     .then(data => {
                         employee = data
                         displayEmployeeInfo(employee)
+                        console.info('Employee data updated')
+						showInfoMessage('Employee data updated')
                     })
             })
         })

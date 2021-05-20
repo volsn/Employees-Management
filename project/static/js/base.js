@@ -87,3 +87,12 @@ function PaginationButton(page, items) {
 
 	return button
 }
+
+function showInfoMessage(message) {
+    let alert = $('.alert-primary')
+    alert.text(message.capitalize())
+    alert.show()
+    alert.fadeTo(2000, 500).slideUp(500, function(){
+        alert.slideUp(500)
+    });
+}

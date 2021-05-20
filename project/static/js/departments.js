@@ -30,6 +30,8 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 						item.name = new_name_input.value
 						DisplayList(items, wrapper, rows_per_page, page+1)
 						SetupPagination(items, pagination_element, rows)
+						console.info('Department data updated')
+						showInfoMessage('Department data updated')
 				})
 			})
 		})
@@ -45,6 +47,8 @@ function DisplayList(items, wrapper, rows_per_page, page) {
 					items.splice(start+i, 1)
 					DisplayList(items, wrapper, rows_per_page, (paginatedItems.length !== 1) ? page+1 : page)
 					SetupPagination(items, pagination_element, rows)
+					console.info('Department successfully removed')
+					showInfoMessage('Department successfully removed')
 				})
 			})
 		})
@@ -69,6 +73,8 @@ function buildPage() {
 		sendRequest("POST", endpoints['departments_api'] + name).then(() => {
 			current_page = 1
 			buildPage()
+			console.info('New department successfully created')
+			showInfoMessage('New department successfully created')
 		})
 	})
 }
