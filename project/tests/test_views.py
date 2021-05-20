@@ -49,3 +49,8 @@ class ViewsTest(unittest.TestCase):
     def test_employee(self):
         response = self.client.get('/employee/1')
         self.assertEqual(response.status_code, 200)
+
+    def test_404(self):
+        response = self.client.get('/department/Does not exist')
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('Page not found', str(response.data))
