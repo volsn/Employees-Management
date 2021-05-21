@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Tuple
 from flask import request
 from flask_restful import Resource, reqparse
-from project import db
+from project import db, logger
 from project.models import Department, Employee
 
 
@@ -26,6 +26,7 @@ class AllEmployeesAPI(Resource):
     def get(self) -> Tuple[dict, int]:
         """ returns a list of existing employees """
         employees = [employee.json() for employee in Employee.query.order_by(Employee.id.desc()).all()]
+        logger.debug('Returning the list of all Employees')
         return {'employees': employees}, 200
 
     def post(self) -> Tuple[dict, int]:
@@ -44,6 +45,7 @@ class AllEmployeesAPI(Resource):
         db.session.commit()
 
         data['id'] = employee.id
+        logger.debug('New Employee created')
         return data, 201
 
 
@@ -102,6 +104,7 @@ class EmployeeAPI(Resource):
         employee = Employee.query.filter_by(id=pk).first()
 
         if employee:
+            logger.debug('Returning Employee Data')
             return employee.json(), 200
 
         return {'message': 'employee with id {} not found'.format(pk)}, 404
@@ -123,6 +126,7 @@ class EmployeeAPI(Resource):
             employee = Employee.query.filter_by(id=pk)
             employee.update(data)
             db.session.commit()
+            logger.debug('Updated Employee Data')
             return employee.first().json(), 200
 
         return {'message': 'employee with id {} not found'.format(pk)}, 404
@@ -135,4 +139,5 @@ class EmployeeAPI(Resource):
 
         db.session.delete(employee)
         db.session.commit()
+        logger.debug('Employee removed')
         return {'message': 'employee with id {} successfully removed'.format(pk)}, 200

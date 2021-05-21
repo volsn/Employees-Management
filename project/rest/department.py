@@ -3,7 +3,7 @@ Module for creating endpoints for the '/department' part of rest api
 """
 from typing import Tuple
 from flask_restful import Resource, reqparse
-from project import db
+from project import db, logger
 from project.models import Department, Employee
 
 
@@ -27,6 +27,7 @@ class AllDepartmentsAPI(Resource):
         for dept in Department.query.order_by(Department.id.desc()).all():
             depts['departments'].append(dept.json())
 
+        logger.debug('Returning the list of all departments')
         return depts, 200
 
 
@@ -71,6 +72,7 @@ class DepartmentAPI(Resource):
         db.session.add(dept)
         db.session.commit()
 
+        logger.debug('Created new Department')
         return dept.json(), 201
 
     def put(self, name: str) -> Tuple[dict, int]:
@@ -87,6 +89,7 @@ class DepartmentAPI(Resource):
 
         dept.name = data['name']
         db.session.commit()
+        logger.debug('Updated Department Data')
         return dept.json(), 200
 
     def delete(self, name: str) -> Tuple[dict, int]:
@@ -98,6 +101,7 @@ class DepartmentAPI(Resource):
 
         db.session.delete(dept)
         db.session.commit()
+        logger.debug('Department Removed')
         return {'message': 'department \'{}\' successfully removed'.format(name)}, 200
 
 
@@ -122,6 +126,7 @@ class DepartmentEmployeesAPI(Resource):
             return {'message': 'department with name \'{}\' does not exist'.format(name)}, 404
 
         employees = Employee.query.order_by(Employee.id.desc()).filter_by(department_id=dept.id)
+        logger.debug('Returning the list of all department\'s employees')
         return {'department': dept.json(),
                 'employees': [empl.json() for empl in employees]}, 200
 

@@ -9,14 +9,11 @@ Functions:
     main() -> None
 """
 import random
-import logging
 import argparse
-
-logging.basicConfig(level=logging.DEBUG, filename='app.log', format='%(name)s:%(levelname)s:%(message)s')
 
 from faker import Faker
 
-from project import db
+from project import db, logger
 from project.models import Department, Employee
 
 
@@ -33,7 +30,7 @@ def drop_data() -> None:
         db.session.commit()
 
     except Exception as err:
-        logging.error('Couldn\'t delete Data from the Database: {}'.format(str(err)))
+        logger.error('Couldn\'t delete Data from the Database: {}'.format(str(err)))
         db.session.rollback()
 
 
@@ -47,7 +44,7 @@ def populate_departments(limit: int = 14) -> None:
     Returns:
         None
     """
-    logging.info('Populating Departments Database')
+    logger.info('Populating Departments Database')
 
     department_names = ['General Management', 'Marketing', 'Operations',
                         'Finance', 'Sales', 'Human Resource', 'Purchase',
@@ -59,7 +56,7 @@ def populate_departments(limit: int = 14) -> None:
         db.session.add(department)
     db.session.commit()
 
-    logging.info('Successfully populated Departments Database')
+    logger.info('Successfully populated Departments Database')
 
 
 def populate_employees(limit: int = 10) -> None:
@@ -72,7 +69,7 @@ def populate_employees(limit: int = 10) -> None:
     Returns:
         None
     """
-    logging.info('Populating Employees Database')
+    logger.info('Populating Employees Database')
 
     random.seed(42)
     Faker.seed(42)
@@ -90,7 +87,7 @@ def populate_employees(limit: int = 10) -> None:
             db.session.add(employee)
     db.session.commit()
 
-    logging.info('Successfully populated Employees Database')
+    logger.info('Successfully populated Employees Database')
 
 
 def main() -> None:
