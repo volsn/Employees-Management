@@ -67,6 +67,7 @@ ___
 | |────SRS
 |──────gunicorn_config.py
 |──────setup.py
+|──────requirements.py
 |──────nginx.conf
 ```
 
