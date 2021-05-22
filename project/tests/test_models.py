@@ -1,5 +1,4 @@
 """ Unittests for models module """
-import os
 import unittest
 from project.tests import UnittestSetup
 from project.models import Department, Employee

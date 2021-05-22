@@ -1,5 +1,4 @@
 """ Unittests for rest api module """
-import os
 import json
 import unittest
 from project.tests import UnittestSetup

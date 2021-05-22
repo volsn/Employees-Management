@@ -1,0 +1,8 @@
+include README.md
+include LICENSE.md
+include requirements.txt
+include app.py
+include gunicorn_config.py
+recursive-include project/templates *
+recursive-include project/static *
+recursive-include documentation/ *

@@ -1,5 +1,4 @@
 """ Unittests for views api module """
-import os
 import unittest
 from project.tests import UnittestSetup
 

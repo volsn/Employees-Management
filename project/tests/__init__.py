@@ -7,6 +7,7 @@ from project.models.populate import populate_departments, populate_employees
 
 
 class UnittestSetup:
+    """ Class for defining setUp and tearDown methods for unittesting """
     def setUp(self) -> None:
         """ Setup method that runs before each test """
         # Overriding flask app settings
