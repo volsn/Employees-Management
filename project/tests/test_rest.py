@@ -2,39 +2,11 @@
 import os
 import json
 import unittest
-from project import app, db, basedir
-from project.models.populate import populate_departments, populate_employees
+from project.tests import UnittestSetup
 
 
-class DepartmentsTest(unittest.TestCase):
+class DepartmentsTest(UnittestSetup, unittest.TestCase):
     """ Unittests for the '/departments' part of api"""
-
-    def setUp(self) -> None:
-        """ Setup method that runs before each test """
-        # Overriding flask app settings
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['WTF_CSRF_CHECK_DEFAULT'] = False
-
-        # Using local sqlite db instead of the one used in the project
-        db_path = os.path.join(*[basedir, 'tests', 'db_test.sqlite'])
-        if os.path.exists(db_path):
-            os.remove(db_path)
-
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
-
-        db.create_all()
-        populate_departments()
-        populate_employees()
-
-        # Creating client for making requests
-        self.client = app.test_client()
-
-    def tearDown(self):
-        # Dropping all data from the database
-        with app.app_context():
-            db.session.remove()
-            db.drop_all()
 
     def test_get_all_departments(self):
         """ Return the list of all the departments in the database """
@@ -110,35 +82,8 @@ class DepartmentsTest(unittest.TestCase):
         self.assertTrue('employees' in data.keys())
 
 
-class EmployeesTest(unittest.TestCase):
+class EmployeesTest(UnittestSetup, unittest.TestCase):
     """ Unittests for the '/employee' part of api"""
-
-    def setUp(self) -> None:
-        """ Setup method that runs before each test """
-        # Overriding flask app settings
-        app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False
-        app.config['WTF_CSRF_CHECK_DEFAULT'] = False
-
-        # Using local sqlite db instead of the one used in the project
-        db_path = os.path.join(*[basedir, 'tests', 'db_test.sqlite'])
-        if os.path.exists(db_path):
-            os.remove(db_path)
-
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + db_path
-
-        db.create_all()
-        populate_departments()
-        populate_employees()
-
-        # Creating client for making requests
-        self.client = app.test_client()
-
-    def tearDown(self):
-        # Dropping all data from the database
-        with app.app_context():
-            db.session.remove()
-            db.drop_all()
 
     def test_get_all_employees(self):
         """ Get data about all employees """

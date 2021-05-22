@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mykola Volosnikov">
+        <title>
+            Departments &amp; Employees
+        </title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+        <style>
+            .alert
+            {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="p-3 bg-dark text-white">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="#" class="nav-link px-2 text-white">Departments</a></li>
+                        <li><a href="employees.html" class="nav-link px-2 text-white">Employees</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <div class="container alert alert-danger" style="display: none;">
+        </div>
+        <div class="container alert alert-primary" style="display: none;">
+        </div>
+        <main>
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 class="fw-light">Welcome to the Department Page</h1>
+                        <p class="lead text-muted">Here you can find the list of all departments that are present in the db. All of them can be viewed, edited and deleted.</p>
+                        <p>
+                            <button href="#" class="btn btn-primary my-2" data-bs-toggle="modal" data-bs-target="#newModal" id="newModalButton">Add Department</button>
+                            <a href="#" class="btn btn-secondary my-2">TODO</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="departments_list">
+                        <div class="col" id="dept_Research">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Research</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1316$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">8 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Public relations">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Public relations</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1138$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">5 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Customer Support">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Customer Support</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1385$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">9 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Architecture">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Architecture</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1168$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">2 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Test Team">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Test Team</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1467$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">6 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Development">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Development</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1188$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">2 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Training">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Training</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1146$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">3 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Purchase">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Purchase</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1193$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">5 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" id="dept_Human Resource">
+                            <div class="card shadow-sm">
+                                <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Human Resource</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted department-avg-salary">Average Salary: 1521$</h6>
+                                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-sm btn-outline-secondary view-button" href="department.html">View</a>
+                                            <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                            <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                                        </div>
+                                        <small class="text-muted department-num-employees">9 Employees</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center" style="margin-top: 50px;">
+                        <nav aria-label="...">
+                            <ul class="pagination pagination-lg" id="pagination_div">
+                                <li class="page-item active"><a class="page-link">1</a></li>
+                                <li class="page-item"><a class="page-link">2</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <template id="department_template">
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="static/img/1.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Department Name</h5>
+                        <h6 class="card-subtitle mb-2 text-muted department-avg-salary"></h6>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus assumenda cumque ipsa iusto modi quibusdam quidem voluptatem? Animi blanditiis commodi dolore doloribus ea, earum est inventore officiis? Assumenda, nihil.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-sm btn-outline-secondary view-button">View</a>
+                                <a class="btn btn-sm btn-outline-secondary edit-button" data-bs-toggle="modal" data-bs-target="#editModal">Edit</a>
+                                <a class="btn btn-sm btn-outline-danger delete-button" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a>
+                            </div>
+                            <small class="text-muted department-num-employees"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+        <template id="pagination_item_template">
+            <li class="page-item"><a class="page-link"></a></li>
+        </template>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Department</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove this department?</p>
+                        <p style="font-size: 13px;"><i class="bi bi-info-circle-fill"></i> All department workers will be removed too</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="deleteConfirmButton">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Change Department Name</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="javascript:void(0)">
+                            <div class="mb-3">
+                                <label for="editName" class="form-label">New Name</label>
+                                <input type="text" class="form-control" id="editName">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="editConfirmButton">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="newModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newModalLabel">Create New Department</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="javascript:void(0)">
+                            <div class="mb-3">
+                                <label for="editName" class="form-label">New Name</label>
+                                <input type="text" class="form-control" id="newName">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="newConfirmButton">Create</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="text-muted py-5">
+            <div class="container">
+                <p class="float-end mb-1">
+                    <a style="text-decoration: none;" href="#"><i class="bi bi-arrow-up-square-fill"></i> Back to top</a>
+                </p>
+            </div>
+        </footer>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="static/bootstrap/js/bootstrap.bundle.js"></script>
+    </body>
+</html>
