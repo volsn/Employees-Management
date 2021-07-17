@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/volsn/epam-final-project.svg?branch=master)](https://travis-ci.com/volsn/epam-final-project) [![Coverage Status](https://coveralls.io/repos/github/volsn/epam-final-project/badge.svg?branch=master)](https://coveralls.io/github/volsn/epam-final-project?branch=master)
 
-This is a Repository for my EPAM Python Course Final Project
+Application designed for managing departments and employees data.
 
 ## Table of contents
 0. [Installation](#installation)
