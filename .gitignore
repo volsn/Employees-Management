@@ -12,7 +12,7 @@ __pycache__/
 # IDE Files
 .idea/
 
-# Environment Files
+# Virtuals Environments
 env/
 venv/
 
@@ -21,3 +21,9 @@ venv/
 
 # Pylint usage
 .pylint
+
+# Environment Variables
+.env
+
+# Nginx Configuration
+nginx.conf
